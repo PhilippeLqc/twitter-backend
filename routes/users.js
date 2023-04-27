@@ -23,12 +23,11 @@ router.post('/signup', (req, res) => {
         username: req.body.username,
         password: hash,
         token: uid2(32),
-        tweets: { type: mongoose.Schema.Types.ObjectId, ref: 'tweets' },
 
       });
 
       newUser.save().then(data => {
-        res.json({ result: true, token: data.token });
+        res.json({ result: true, token: data.token});
       });
     } else {
       // User already exists in database
@@ -52,6 +51,14 @@ router.post('/signin', (req, res) => {
   });
 });
 
+
+router.post('/getUser', (req, res) => {
+
+
+  User.findOne({ token: req.body.token }).then(data => {
+      res.json({ data });
+  });
+});
 
 
 module.exports = router;
