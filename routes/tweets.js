@@ -58,4 +58,21 @@ router.put("/like/:tweetId", (req, res) => {
   });
 });
 
+
+// delete like 
+
+router.delete("/deletelike/:tweetId", (req, res) => {
+  const tweetId = req.params.tweetId; // récupère l'ID du tweet à modifier
+  const authorId = req.body.authorId; // récupère l'auteur à retirer du tableau des likes
+
+  // Met à jour le tweet avec l'ID donné en retirant l'auteur du tableau des likes
+  Tweet.updateOne(
+    { _id: tweetId },
+    { $pull: { like: authorId } } // Utilisez l'opérateur $pull pour retirer l'auteur du tableau des likes
+  ).then((data) => {
+    res.json({ data });
+  });
+});
+
+
 module.exports = router;
