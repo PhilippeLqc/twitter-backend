@@ -17,10 +17,11 @@ router.post("/add", (req, res) => {
       date: req.body.date,
       message: req.body.message,
       user: req.body.user,
+      hashtags: req.body.hashtag
     });
 
     newTweet.save().then((newDoc) => {
-      res.json({ result: true });
+      res.json({ newDoc});
     });
   });
 });
