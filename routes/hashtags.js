@@ -31,4 +31,17 @@ router.post("/add", (req, res) => {
   });
 });
 
+
+// Recupère tous les hashtags
+
+router.get("/getHashtags", (req, res) => {
+    Hashtag.find()
+      .populate("tweets")
+      .then((data) => {
+        res.json(data);
+      });
+  });
+
+
+
 module.exports = router;
