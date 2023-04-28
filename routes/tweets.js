@@ -17,7 +17,7 @@ router.post("/add", (req, res) => {
     const newTweet = new Tweet({
       date: req.body.date,
       message: req.body.message,
-      user: data._id
+      user: req.body.user
     })
 
     newTweet.save().then(newDoc => {
@@ -34,10 +34,23 @@ router.get("/getTweets", (req, res) => {
     Tweet.find()
     .populate('user')
     .then(data => {
-        console.log(data);
-        res.json({ result: true})
+       
+        res.json(data)
       });
 })
+
+// delete a tweet
+
+router.delete("/delete/:tweetId", (req, res) => {
+
+  Tweet.deleteOne({_id: req.params.tweetId})
+  .then(data => {
+      res.json({message: true})
+    });
+})
+
+
+
 
 
 module.exports = router;

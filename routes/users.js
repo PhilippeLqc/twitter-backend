@@ -26,8 +26,8 @@ router.post('/signup', (req, res) => {
 
       });
 
-      newUser.save().then(newDoc => {
-        res.json({ result: true, token: newDoc.token });
+      newUser.save().then(data => {
+        res.json({ result: true, token: data.token});
       });
     } else {
       // User already exists in database
@@ -51,6 +51,14 @@ router.post('/signin', (req, res) => {
   });
 });
 
+
+router.post('/getUser', (req, res) => {
+
+
+  User.findOne({ token: req.body.token }).then(data => {
+      res.json({ data });
+  });
+});
 
 
 module.exports = router;
